@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class UserInteraction {
 
+    //    Реализуем взаимодействие пользователя и программы посредством консольного меню
+    static {
+        System.out.println("Добро пожаловать в программу \"криптоанализатор\"!\n" +
+                "Feci quod potui, faciant meliora potentes!");
+    }
+
     public static void startEnciphering() {
         System.out.println("Что желает Ваше Августейшее Величество?\n" +
                 "1: Шифрование текста\n" +
@@ -54,7 +60,17 @@ public class UserInteraction {
                 CaesarCipher.decrypt(path2, key2);
                 startEnciphering();
             }
-            case 3 -> System.out.println("TODO");
+            case 3 -> {
+                System.out.println("Отличный выбор!\nВведите путь к файлу с текстом");
+                Scanner kb3 = new Scanner(System.in);
+                String path3 = kb3.nextLine();
+                while (!Files.isRegularFile(Path.of(path3))) {
+                    System.out.println("Хм... Не похоже на путь к файлу:( попробуйте еще раз");
+                    path3 = kb3.nextLine();
+                }
+                CaesarCipher.bruteforce(path3);
+                startEnciphering();
+            }
             case 4 -> System.out.println("Аве Цезарь!");
             default -> {
                 System.out.println("Мой Повелитель, не смею перечить, но челом бью! Введите цифру от 1 до 4");
